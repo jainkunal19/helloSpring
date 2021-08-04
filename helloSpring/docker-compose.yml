@@ -1,0 +1,52 @@
+services:
+    cache:
+        image: "redis"
+        #command: bind 0.0.0.0
+        container_name: 'cache'
+        volumes: 
+          - /Users/Kunal/data/redis-data:/data
+          - /Users/Kunal/data/redisconf:/usr/local/etc/redis/
+        entrypoint: redis-server --bind 0.0.0.0
+        environment: 
+          - REDIS_REPLICATION_MODE=master
+        ports:
+          - '6378:6379'
+        networks:
+          - my-network
+    mydb:
+        image: mysql:latest
+        restart: always
+        container_name: 'mydb'
+        environment:
+            MYSQL_DATABASE: 'test'
+            MYSQL_USER: 'user'
+            MSQL_PASSWORD: 'Ramsden100'
+            MYSQL_ROOT_PASSWORD: 'Ramsden100'
+        ports:
+          - '3307:3306'
+        volumes:
+          - /Users/Kunal/data/mysql:/var/lib/mysql
+        networks:
+          - my-network
+    hellospring:
+        build: ${PWD}
+        ports:
+          - '9006:9006'
+        environment:
+          REDIS_HOST: cache
+          MYSQL_HOST: mydb
+          csrt.logpath: /home
+        networks:
+          - my-network
+        depends_on:
+          - mydb
+          - cache
+        volumes:
+          - /Users/Kunal/data/csrt:/home
+    
+networks:
+    my-network:
+      
+      
+         
+    
