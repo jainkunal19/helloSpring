@@ -20,8 +20,8 @@ services:
         environment:
             MYSQL_DATABASE: 'test'
             MYSQL_USER: 'user'
-            MSQL_PASSWORD: 'Ramsden100'
-            MYSQL_ROOT_PASSWORD: 'Ramsden100'
+            MSQL_PASSWORD: 'XXXXXX'
+            MYSQL_ROOT_PASSWORD: 'XXXXXX'
         ports:
           - '3307:3306'
         volumes:
